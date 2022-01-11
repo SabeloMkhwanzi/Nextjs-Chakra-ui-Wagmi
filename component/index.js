@@ -1,2 +1,2 @@
-export { default as SignMessage } from "./SignMessage";
+export { default as Navbar } from "./Navbar";
 export { default as WalletModel } from "./WalletModel";
