@@ -1,5 +1,11 @@
 import React from "react";
-import { Box, HStack, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  useDisclosure,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import {
   Modal,
   ModalOverlay,
@@ -10,6 +16,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 
+// Import Wagmi hooks
 import { useConnect, useAccount, useBalance } from "wagmi";
 
 export default function WalletModel() {
@@ -21,6 +28,12 @@ export default function WalletModel() {
     fetchEns: true,
   });
 
+  // bgColor
+  const bg = useColorModeValue("white", "gray.800");
+
+  // Button bgColor
+  const bgColor = useColorModeValue("blue.200", "blue.500");
+
   // Fetching balance information
   const [{ data: getBalance }] = useBalance({
     addressOrName: accountData?.address,
@@ -29,36 +42,50 @@ export default function WalletModel() {
   if (accountData) {
     return (
       <Box>
-        <Box>
-          {accountData.ens?.name
-            ? `${accountData.ens?.name} (${accountData.address})`
-            : accountData.address}
-        </Box>
-        <Box>
-          <h6>
-            {" "}
-            Acc Balance:{`${Number(getBalance?.formatted).toFixed(3)} Ether`}
-          </h6>
-        </Box>
-        <Button onClick={disconnect}>Disconnect</Button>
+        <HStack>
+          <Box
+            bg={bg}
+            my={-5}
+            px={2}
+            py={1}
+            borderWidth={1}
+            borderRadius="2xl"
+            borderColor="blue.500"
+          >
+            <Text fontSize="xs" as="address" isTruncated maxWidth={150}>
+              {accountData.ens?.name
+                ? `${accountData.ens?.name} (${accountData.address})`
+                : accountData.address}
+            </Text>
+            <Text fontSize="xs" as="samp">
+              Balance: {`${Number(getBalance?.formatted).toFixed(3)} ETH`}
+            </Text>
+          </Box>
+          <Button borderRadius="2xl" bg="blue.500" onClick={disconnect}>
+            Disconnect
+          </Button>
+        </HStack>
       </Box>
     );
   }
   return (
     <>
-      <Button onClick={onOpen}>Connect</Button>
+      <Button bg={bgColor} borderRadius="2xl" onClick={onOpen}>
+        Connect
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>SELECT WALLET!</ModalHeader>
+        <ModalContent borderRadius="2xl" width="md">
+          <ModalHeader>Select Wallet</ModalHeader>
 
           <ModalBody>
             {connectData.connectors.map((x) => (
-              <HStack key={x.id}>
+              <HStack py={2} key={x.id}>
                 <Button
+                  w="full"
                   borderRadius="full"
-                  bgColor="blue.900"
+                  bgColor="blue.500"
                   disabled={!x.ready}
                   onClick={() => connect(x)}
                 >
@@ -70,9 +97,17 @@ export default function WalletModel() {
 
           <ModalFooter>
             {connectError && (
-              <Box>{connectError?.message ?? "Failed to connect"}</Box>
+              <Box flex alignItems="start" pos="absolute" pl={4} left={1}>
+                {connectError?.message ?? "Failed to connect"}
+              </Box>
             )}
-            <Button colorScheme="RED" mr={3} onClick={onClose}>
+            <Button
+              borderRadius="full"
+              color="white"
+              bg="red.400"
+              mr={3}
+              onClick={onClose}
+            >
               CANCEL
             </Button>
           </ModalFooter>

@@ -37,16 +37,20 @@ export default function Navbar() {
   const text = useColorModeValue("dark", "light");
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
 
+  // Button bgColor
+  const bgColor = useColorModeValue("blue.200", "blue.500");
+
   return (
     <Box shadow="2xl" borderRadius="3xl">
       <chakra.header
         bg={bg}
-        borderColor="gray.600"
+        borderColor={useColorModeValue("gray.400", "blue.500")}
         borderBottomWidth={1}
         w="full"
         px={{ base: 2, sm: 4 }}
         py={4}
       >
+        {/* MobileNav - setting */}
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <HStack spacing={4} display="flex" alignItems="center">
             <Box display={{ base: "inline-flex", md: "none" }}>
@@ -82,8 +86,10 @@ export default function Navbar() {
 
                 <WalletModel />
                 <IconButton
+                  bg={bgColor}
+                  borderRadius="2xl"
                   size="md"
-                  w="full"
+                  w={90}
                   fontSize="lg"
                   aria-label={`Switch to ${text} mode`}
                   variant="solid"
@@ -112,6 +118,8 @@ export default function Navbar() {
               <WalletModel />
 
               <IconButton
+                bg={bgColor}
+                borderRadius="2xl"
                 size="md"
                 fontSize="lg"
                 aria-label={`Switch to ${text} mode`}
@@ -131,6 +139,8 @@ export default function Navbar() {
           </HStack>
         </Flex>
       </chakra.header>
+
+      {/* DesktopNav - setting */}
       <Flex
         alignItems="center"
         justifyContent="space-between"
@@ -140,34 +150,48 @@ export default function Navbar() {
       >
         <Tabs defaultIndex={1} borderBottomColor="transparent">
           <TabList>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
-              Menu
+            <Tab
+              fontWeight="semibold"
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+            >
+              Dashboard
             </Tab>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
-              Menu
+            <Tab
+              fontWeight="semibold"
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+            >
+              Portfolio
             </Tab>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
-              Menu
+            <Tab
+              fontWeight="semibold"
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+            >
+              Wallet
             </Tab>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
-              Menu
+            <Tab
+              fontWeight="semibold"
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+            >
+              Send
             </Tab>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
-              Menu
+            <Tab
+              fontWeight="semibold"
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+            >
+              Transaction
             </Tab>{" "}
           </TabList>
         </Tabs>
-        <Spacer />
-        <HStack spacing={3} alignItems="center">
-          <InputGroup display={{ base: "none", lg: "block" }} ml="auto">
-            <InputLeftElement
-              pointerEvents="none"
-              // eslint-disable-next-line react/no-children-prop
-              children={<AiOutlineSearch />}
-            />
-            <Input borderRadius="full" type="tel" placeholder="Search..." />
-          </InputGroup>
-        </HStack>
       </Flex>
     </Box>
   );
