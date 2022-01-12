@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 export default function Home() {
-  // Button bgColor color mode
+  // Button bgColor color
   const bgColor = useColorModeValue("blue.200", "blue.500");
 
   return (

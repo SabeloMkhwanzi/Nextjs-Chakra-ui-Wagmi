@@ -85,7 +85,7 @@ export default function WalletModel() {
                 <Button
                   w="full"
                   borderRadius="full"
-                  bgColor="blue.500"
+                  bgColor={bgColor}
                   disabled={!x.ready}
                   onClick={() => connect(x)}
                 >

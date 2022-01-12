@@ -107,10 +107,10 @@ export default function Navbar() {
               alignItems="center"
             >
               {/* <Logo /> */}
-              <VisuallyHidden>NCW</VisuallyHidden>
+              <VisuallyHidden>NCW Starter</VisuallyHidden>
             </chakra.a>
             <chakra.h1 fontWeight="semibold" fontSize="2xl">
-              NCW
+              NCW Starter
             </chakra.h1>
           </HStack>
           <HStack spacing={3} display="flex" alignItems="center">
